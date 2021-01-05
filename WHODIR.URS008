@@ -1,0 +1,36 @@
+<BLOCK <GET ROOT OBLIST>>                                                       
+NULL NULATOM                                                                    
+<ENDBLOCK>                                                                      
+                                                                                
+<COND (<NOT <GASSIGNED? NULL!->> 
+	   <SETG NULL <INSERT  <ATOM <ASCII 127>> <GET INITIAL OBLIST>>>)>
+;<SETG NULL <INSERT <ATOM <ASCII 127>> <GET ROOT OBLIST> >>                      
+;"SETS THE GVAL OF NULL TO ATOM WITH A NON-PRINTING PMANE"                                                                                
+                                                                                
+<DEFINE WHO()  ;"PRINTS ON YOUR TTY WHO IS LOGGED ON TO THE SYSTEM.             
+                 READES THE PSYDO-FILE "TTY:.FILE. (DIR)" AND COPYIES 
+                 IT TO .OUTCHAN, NORMALLY YOUR TTY"                                   
+        <FILECOPY <OPEN "READ" "TTY:.FILE. (DIR)"> .OUTCHAN>                    
+        <TERPRI>                                                                
+        ,NULL>                                                                  
+                                                                                
+<DEFINE DIR ("OPTIONAL" DIR0 "AUX" (D <SNAME>))                                 
+        ;"TYPES A DIRECTORY LISTING ON YOUR TTY. IT TAKES AN OPTIONAL           
+          ATOM WHO'S PNAME IS THE DIRECTORY TO LIST. IT DEFAULTS TO             
+          YOUR LOGIN DIRECTORY."                                                
+        <COND (<ASSIGNED? DIR0> <SET D <PNAME .DIR0>>)>                         
+        <FILECOPY <OPEN "READ" <STRING .D ";.FILE. (DIR)">>                     
+                  .OUTCHAN>                                                     
+        <TERPRI>                                                                
+        ,NULL>                                                                  
+
+<DEFINE TYPFIL (FILENAM "AUX" TMP)                                 
+        ;"TYPES A FILE ON YOUR TTY.
+          FILENAM IS THE FILE NAME STRING THAT YOU WOULD
+          TYPE TO :PRINT OR ^R "                                                
+        ;<COND (<ASSIGNED? DIR0> <SET D <PNAME .DIR0>>)>                         
+        <FILECOPY <OPEN "READ" <STRING .FILENAM>>                     
+                  .OUTCHAN>                                                     
+        <TERPRI>                                                                
+        ,NULL>                                                                  
+                                                                              
